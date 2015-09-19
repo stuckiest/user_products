@@ -8,7 +8,7 @@ $(document).ready( function() {
              success: function(data) {
                for(index in data.users) {
                  var user = data.users[index];
-                 $('#users').append("<li class='person' data-user-id='" + user.id + "'>" + user.first_name + "<button class='delete'>Delete</button><button id='show'>Show</button></li>");
+                 $('#users').append("<li class='person' data-user-id='" + user.id + "'>" + user.first_name + " " + user.last_name + "   " + "<button class='delete'>Delete</button><button id='show'>Show</button><button class='edit_button'>Edit</button></li>");
                }
              },
              error: function(data) {
@@ -42,10 +42,10 @@ $(document).ready( function() {
   });
 
 
-  $(document).on('click', '.person', function() {
+  $(document).on('click', '.edit_button', function() {
    $('#edit_user').removeClass('hide');
 
-   $.ajax(baseUrl + $(this).data('user-id'),
+   $.ajax(baseUrl + $(this).closest('.person').data('user-id'),
           {
             type: 'GET',
             success: function(data) {
@@ -107,8 +107,8 @@ $(document).ready( function() {
        data: user,
        success: function(data) {
         var user = data.user;
-        $('#users').append("<li class='person' data-user-id='" + user.id + "'>" + user.first_name + "<button class='delete'>Delete</button></li>");
-
+        $('#users').append("<li class='person' data-user-id='" + user.id + "'>" + user.first_name + " " + user.last_name + "   " + "<button class='delete'>Delete</button><button id='show'>Show</button></li>");
+        $('#add_user')[0].reset();
        }
     });
   });
